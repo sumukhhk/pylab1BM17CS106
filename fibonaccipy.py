@@ -21,3 +21,16 @@ def fib(n):
             print(c)
 n=int(input("Enter the value of n: "))
 fib(n)
+
+"""Enter the value of n: 10
+The fibonacci series upto 10 terms is:
+0
+1
+1
+2
+3
+5
+8
+13
+21
+34"""
