@@ -29,4 +29,24 @@ if(temp==True):
 else:
     print("Invalid input rejected")
         
-    
+"""output
+>>> 
+======================== RESTART: /home/bmsce/lab4.py ========================
+Enter name:sumukh
+Enter age:25
+Enter marks:98
+congrats
+>>> 
+======================== RESTART: /home/bmsce/lab4.py ========================
+Enter name:virat
+Enter age:12
+Enter marks:65
+Invalid input rejected
+>>> 
+======================== RESTART: /home/bmsce/lab4.py ========================
+Enter name:rohit
+Enter age:32
+Enter marks:50
+Invalid input rejected
+"""
+
