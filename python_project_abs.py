@@ -70,7 +70,7 @@ def Insert_customer():
     cus_name=input("\nEnter Name: ")
     cus_mob=int(input("\nEnter mobile number: "))
     balance=int(input("Enter amount in the card"))
-    cur.execute("INSERT INTO CUSTOMER VALUES(?,?,?,?)",(cus_id,cus_name,cus_mob,balance))
+    cur.execute("INSERT INTO CUSTOMER(CUS_ID,CUS_NAME,CUS_MOB,BALANCE) VALUES(?,?,?,?)",(cus_id,cus_name,cus_mob,balance))
 
 def Display_customer():
     cursor.execute("SELECT * from CUSTOMER")
@@ -101,5 +101,46 @@ def update_balance():
 def delete_customer():
     cus_id=input("Enter the customerid to delete the customer details")
     cursor.execute("DELETE FROM CUSTOMER WHERE CUS_ID=?",(cus_id,))
+    conn.commit()
+    print("Record successfully deleted")
+
+#-----------------------------------------TRANSACTIONS TABLE----------------------------------#
+
+cursor.execute('''CREATE TABLE IF NOT EXISTS TRANSACTIONS(
+                CUS_ID TEXT,
+                ITEM_ID TEXT,
+                ITEM_QTY INT NOT NULL,
+                DATE_OF_VISIT DATE,
+                TIME_OF_VISIT TIME PRIMARY KEY,
+                FOREIGN KEY(CUS_ID)REFERENCES CUSTOMER(CUS_ID),
+                FOREIGN KEY(ITEM_ID) REFERENCES ITEM_LIST(ITEM_ID),
+                FOREIGN KEY(ITEM_QTY) REFERENCES ITEM_LIST(ITEM_QTY));''')        
+
+conn.commit()
+
+def Insert_transaction():
+    cus_id=input("Enter Customer id: ")
+    item_id=input("Enter Item id: ")
+    item_qty=int(input("Enter item quantity: "))
+    cur.execute("INSERT INTO TRANSACTIONS VALUES(?,?,?,?,?)",(cus_id,item_id,item_qty,date('now'),time('now')))
+    print("Inserted Successfully!!!")
+    conn.commit()
+
+def Display_transaction():
+    cursor.execute("SELECT * from TRANSACTIONS")
+    rows=cursor.fetchall()
+    for row in rows:
+        print(row)
+
+def update_transaction():    
+    item_id=input("Enter item id")
+    item_qty=int(input("Enter quantity"))
+    cursor.execute("UPDATE TRANSACTIONS SET ITEM_QTY=? WHERE ITEM_ID=?",(item_qty,item_id))
+    print("Update done successfully!!!")
+    conn.commit()    
+
+def delete_transaction():
+    item_id=input("Enter the item id to delete")
+    cursor.execute("DELETE FROM TRANSACTIONS WHERE ITEM_ID=?",(item_id,))
     conn.commit()
     print("Record successfully deleted")
